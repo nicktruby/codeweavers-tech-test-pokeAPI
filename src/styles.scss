@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./assets/styles/variables";
+
+// Required
+@import "~bootstrap/scss/bootstrap.scss";
+
+* {
+  font-family: Sofia-pro, Arial, Helvetica, sans-serif;
+}
+
+.bg-green {
+  background-color: $green;
+}
+
+.bg-red {
+  background-color: $red;
+}
+
+.bg-blue {
+  background-color: $blue;
+}
+
+.bg-yellow {
+  background-color: $yellow;
+}
+
+.bg-purple {
+  background-color: $purple;
+}
+
+.bg-brown {
+  background-color: $brown;
+}

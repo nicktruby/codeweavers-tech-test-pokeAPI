@@ -1,6 +1,11 @@
 
-<article *ngFor="let pokemon of pokemonArr">
-  <p>{{pokemon.name}}</p>
-  <p>{{pokemon.height}}</p>
-  <img src={{pokemon.sprites.other.dream_world.front_default}} alt={{pokemon.name}}>
+<article class=pokemon [ngClass]="this.backgroundClass">
+  <p class="pokemon__id"><b>{{pokemon.id}}</b></p>
+  <div>
+    <h2 class="pokemon__name"><b>{{pokemon.name}}</b></h2>
+    <ng-container *ngFor="let type of pokemon.types">
+      <p class="pokemon__type">{{type}}</p><br />
+    </ng-container>
+  </div>
+  <img class="pokemon__image"src={{pokemon.image}} alt={{pokemon.name}}>
 </article>

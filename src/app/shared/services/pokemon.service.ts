@@ -2,38 +2,7 @@ const PAGE_SIZE = 50;
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-interface pokemonResult {
-  name: string
-  url: string
-}
-
-interface groupPokemonResponse {
-  count: number,
-  next: string,
-  previous: string,
-  results: pokemonResult[]
-}
-
-interface individualPokemonResponse {
-  abilities: object[],
-  base_experience: number,
-  forms: object[],
-  game_indices: object[],
-  height: number,
-  held_items: [],
-  id: number,
-  is_default: boolean,
-  location_area_encounters: string,
-  moves: object[],
-  name: string,
-  order: number,
-  species: object,
-  sprites: object[],
-  stats: object[],
-  types: object[],
-  weight: number
-}
+import { GroupPokemonResponse, IndividualPokemonResponse } from './models/pokemon.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,15 +12,39 @@ export class PokemonService {
 
   constructor( private http: HttpClient ) { }
 
-  async getIndividualPokemon(url) : Promise<individualPokemonResponse> {
-    return await this.http.get<individualPokemonResponse>(url).toPromise();
+  async getIndividualPokemon(url) : Promise<IndividualPokemonResponse> {
+    return await this.http.get<IndividualPokemonResponse>(url).toPromise();
   }
 
-  async getPageOfPokemon(pageNumber) : Promise<individualPokemonResponse[]> {
-    
+  async getPageOfPokemon(pageNumber) : Promise<IndividualPokemonResponse[]> {
     const url = `https://pokeapi.co/api/v2/pokemon/?limit=${PAGE_SIZE}&offset=${(pageNumber - 1) * PAGE_SIZE}`
-    const allPokemon = await this.http.get<groupPokemonResponse>(url).toPromise();
+    const allPokemon = await this.http.get<GroupPokemonResponse>(url).toPromise();
     return await Promise.all(allPokemon.results.map(eachPokemon => this.getIndividualPokemon(eachPokemon.url)));
   };
+  
+  cleanPokemon(pokemon) {
+    console.log(pokemon);
+    return { 
+      name : pokemon.name ? pokemon.name : "",
+      id : pokemon.id ? this.formatPokemonID(pokemon.id) : "",
+      image : pokemon.sprites.other.dream_world.front_default ? pokemon.sprites.other.dream_world.front_default : "",
+      types : pokemon.types ? pokemon.types.map(type => type.type.name) : "",
+    }
+  }
+  
+  formatPokemonID (id) : string {
+    if (id < 10 ) {
+      return `#000${id}`
+    }
+    else if (id < 100 ) {
+      return `#00${id}`
+    }
+    else if (id < 1000 ) {
+      return `#0${id}`
+    }
+    else {
+      return `#${id}`
+    }
+  }
 
 }
