@@ -12,7 +12,7 @@ import { IndividualPokemonResponse } from 'src/app/shared/models/pokemon.model';
 
 export class PokemonDetailsComponent implements OnInit {
 
-  pokemon: any = {};
+  pokemon: any = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -24,9 +24,17 @@ export class PokemonDetailsComponent implements OnInit {
     this.getPokemon();
   }
 
-  async getPokemon() {
+  getPokemon(): void {
     const id = this.route.snapshot.paramMap.get('id')
-    await this.pokemonSvc.getIndividualPokemon(id)
-      .then(pokemon => this.pokemon = pokemon)
+    this.pokemonSvc.getIndividualPokemon(id)
+      .subscribe(individualPokemon => this.pokemon = individualPokemon);
+
+
+    // this.pokemonSvc.getIndividualPokemon(id)
+    //   .subscribe(indivudalPokemon => {
+    //     this.pokemon = indivudalPokemon
+    //     console.log('abc')
+    //     console.log(this.pokemon)
+    //   })
   }
 }

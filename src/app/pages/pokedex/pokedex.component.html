@@ -1,4 +1,19 @@
-<h1 class=page-title>Pokedex</h1>
+<h1 class="page-title">Pokedex</h1>
+
+<nav class="pagination-nav">
+  <ul class="pagination justify-content-end">
+    <li class="page-item disabled">
+      <a class="page-link" tabindex="-1" aria-disabled="true" routerLink="/pokedex/all-pokemon/page1">Previous</a>
+    </li>
+    <li>
+    <a class="page-link" routerLink="/pokedex/all-pokemon/page{{currentPage - 1}}">Previous</a>  
+    </li>
+    <li>
+    <a class="page-link" routerLink="/pokedex/all-pokemon/page{{currentPage + 1}}">Next</a>
+    </li>
+  </ul>
+</nav>
+
 <div class="pokemon__list">
   <app-card *ngFor="let pokemon of pokemonArr" [pokemon]="pokemon"></app-card>
 </div>

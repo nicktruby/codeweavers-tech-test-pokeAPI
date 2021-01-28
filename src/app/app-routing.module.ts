@@ -8,11 +8,12 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'pokedex', component: PokedexComponent },
+  { path: 'pokedex/:filter/:pageNumber', component: PokedexComponent },
   { path: 'detail/:id', component: PokemonDetailsComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

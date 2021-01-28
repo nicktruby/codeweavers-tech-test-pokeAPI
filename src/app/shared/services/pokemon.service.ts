@@ -2,6 +2,7 @@ const PAGE_SIZE = 50;
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 import { GroupPokemonResponse, IndividualPokemonResponse } from '../models/pokemon.model';
 
 @Injectable({
@@ -12,16 +13,22 @@ export class PokemonService {
 
   constructor( private http: HttpClient ) { }
 
-  async getIndividualPokemon(nameOrID) : Promise<IndividualPokemonResponse> {
-    const url = `https://pokeapi.co/api/v2/pokemon/${nameOrID}`
-    return await this.http.get<IndividualPokemonResponse>(url).toPromise();
-  }
-
-  async getPageOfPokemon(pageNumber) : Promise<IndividualPokemonResponse[]> {
+  
+  getPageOfPokemon(filter, pageNumber) : Observable<GroupPokemonResponse> {
     const url = `https://pokeapi.co/api/v2/pokemon/?limit=${PAGE_SIZE}&offset=${(pageNumber - 1) * PAGE_SIZE}`
-    const allPokemon = await this.http.get<GroupPokemonResponse>(url).toPromise();
-    return await Promise.all(allPokemon.results.map(eachPokemon => this.getIndividualPokemon(eachPokemon.name)));
-  };
+    return this.http.get<GroupPokemonResponse>(url)
+  }
+  
+  getIndividualPokemon(nameOrID) : Observable<IndividualPokemonResponse> {
+    const url = `https://pokeapi.co/api/v2/pokemon/${nameOrID}`
+      return this.http.get<IndividualPokemonResponse>(url);
+  }
+  
+  // async getPageOfPokemon(filter, pageNumber) : Promise<IndividualPokemonResponse[]> {
+    //   const url = `https://pokeapi.co/api/v2/pokemon/?limit=${PAGE_SIZE}&offset=${(pageNumber - 1) * PAGE_SIZE}`
+  //   const allPokemon = await this.http.get<GroupPokemonResponse>(url).toPromise();
+  //   return await Promise.all(allPokemon.results.map(eachPokemon => this.getIndividualPokemon(eachPokemon.name)));
+  // };
   
   cleanPokemon(pokemon) {
     return { 
