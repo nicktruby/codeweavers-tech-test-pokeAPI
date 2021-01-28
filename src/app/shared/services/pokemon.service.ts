@@ -2,7 +2,7 @@ const PAGE_SIZE = 50;
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { GroupPokemonResponse, IndividualPokemonResponse } from './models/pokemon.model';
+import { GroupPokemonResponse, IndividualPokemonResponse } from '../models/pokemon.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,18 +12,18 @@ export class PokemonService {
 
   constructor( private http: HttpClient ) { }
 
-  async getIndividualPokemon(url) : Promise<IndividualPokemonResponse> {
+  async getIndividualPokemon(nameOrID) : Promise<IndividualPokemonResponse> {
+    const url = `https://pokeapi.co/api/v2/pokemon/${nameOrID}`
     return await this.http.get<IndividualPokemonResponse>(url).toPromise();
   }
 
   async getPageOfPokemon(pageNumber) : Promise<IndividualPokemonResponse[]> {
     const url = `https://pokeapi.co/api/v2/pokemon/?limit=${PAGE_SIZE}&offset=${(pageNumber - 1) * PAGE_SIZE}`
     const allPokemon = await this.http.get<GroupPokemonResponse>(url).toPromise();
-    return await Promise.all(allPokemon.results.map(eachPokemon => this.getIndividualPokemon(eachPokemon.url)));
+    return await Promise.all(allPokemon.results.map(eachPokemon => this.getIndividualPokemon(eachPokemon.name)));
   };
   
   cleanPokemon(pokemon) {
-    console.log(pokemon);
     return { 
       name : pokemon.name ? pokemon.name : "",
       id : pokemon.id ? this.formatPokemonID(pokemon.id) : "",

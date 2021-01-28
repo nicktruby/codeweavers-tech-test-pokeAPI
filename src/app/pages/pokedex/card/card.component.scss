@@ -8,6 +8,7 @@
   position: relative;
   display: grid;
   grid-template-columns: 50% 50%;
+  grid-template-rows: 10px auto;
   height: 120px;
   transition: all 0.2s ease;
   box-shadow: rgba(0,0,0,0.2) 2px 2px 5px;
@@ -23,8 +24,9 @@
     text-transform: capitalize;
     color: $white;
     justify-self: end;
-    color: rgba(0,0,0,0.2);
+    color: rgba(0,0,0,0.15);
     font-size: 0.5em;
+    height: min-content;
     text-align: right;
     grid-column: 1/3;
     margin-bottom: 0;
@@ -33,7 +35,7 @@
   &__name {
     text-transform: capitalize;
     color: $white;
-    font-size: 0.8em;
+    font-size: 0.9em;
     margin-bottom: 1em;
   }
   &__image {

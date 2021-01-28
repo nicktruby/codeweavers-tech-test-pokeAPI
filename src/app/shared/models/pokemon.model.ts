@@ -31,13 +31,13 @@ export interface IndividualPokemonResponse {
 }
 
 export const BackgroundColours = {
-  "normal" : "bg-green",
+  "normal" : "bg-grey",
   "fighting" : "bg-green",
-  "flying" : "bg-green",
+  "flying" : "bg-brown",
   "poison" : "bg-purple",
   "ground" : "bg-brown",
-  "rock" : "bg-grey",
-  "bug" : "bg-green",
+  "rock" : "bg-brown",
+  "bug" : "bg-darkgreen",
   "ghost" : "bg-black",
   "steel" : "bg-darkgrey",
   "fire" : "bg-red",
@@ -49,6 +49,6 @@ export const BackgroundColours = {
   "dragon" : "bg-red",
   "dark" : "bg-black",
   "fairy" : "bg-pink",
-  "unknown" : "bg-white",
+  "unknown" : "bg-grey",
   "shadow" : "bg-black",
 }
