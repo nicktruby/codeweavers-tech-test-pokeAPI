@@ -1,3 +1,18 @@
-<p>pokemon-details works!</p>
-<p>{{pokemon.name}}</p>
-<p>{{pokemon.id}}</p>
+<main class="page" [ngClass]="this.backgroundClass">
+  <section class="top">
+    <div class="top__titles">
+      <h1 class="top__titles__name">{{pokemon.name}}</h1>
+      <p class="top__titles__id"><b>{{pokemon.id}}</b></p>
+    </div>
+    <div class="top__types">
+      <ng-container *ngFor="let type of pokemon.types">
+          <p class="top__types__type">{{type}}</p><br />
+      </ng-container>
+    </div>
+      
+    <img *ngIf="pokemon.image" class="top__image" src={{pokemon.image}} alt={{pokemon.name}}>
+  </section>
+  <section class="bottom">
+
+  </section>
+</main>

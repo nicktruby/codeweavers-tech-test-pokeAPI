@@ -1,29 +1,33 @@
-<h1 class="page-title">Pokedex</h1>
-
-<nav class="pagination-nav">
-  <ul class="pagination justify-content-end">
+<main class="page">
+  <section class="section">
+    <h1 class="page-title">Pokedex</h1>
     
-    <li class="page-item" *ngIf="currentPage > 1 ; else previousDisabled">
-      <a class="page-link" (click)="previousPage()"> << </a>
-    </li>
-    <li class="page-item disabled page-numbers">
-      <a class="page-link">{{currentPage}} of {{maxPage}}</a>
-    </li>
-    <li class="page-item" *ngIf="currentPage < maxPage ; else nextDisabled">
-      <a class="page-link" (click)="nextPage()"> >> </a>
-    </li>
-
-  </ul>
-</nav>
-
-<ng-template #previousDisabled>
-  <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"> << </a></li>
-</ng-template>
-<ng-template #nextDisabled>
-  <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"> >> </a></li>
-</ng-template>
-
-
-<div class="pokemon__list">
-  <app-card *ngFor="let pokemon of pokemonArr" [pokemon]="pokemon"></app-card>
-</div>
+    <nav class="pagination-nav">
+      <ul class="pagination justify-content-end">
+        
+        <li class="page-item" *ngIf="currentPage > 1 ; else previousDisabled">
+          <a class="page-link" (click)="previousPage()"> << </a>
+        </li>
+        <li class="page-item disabled page-numbers">
+          <a class="page-link">{{currentPage}} of {{maxPage}}</a>
+        </li>
+        <li class="page-item" *ngIf="currentPage < maxPage ; else nextDisabled">
+          <a class="page-link" (click)="nextPage()"> >> </a>
+        </li>
+    
+      </ul>
+    </nav>
+    
+    <ng-template #previousDisabled>
+      <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"> << </a></li>
+    </ng-template>
+    <ng-template #nextDisabled>
+      <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"> >> </a></li>
+    </ng-template>
+    
+    
+    <div class="pokemon__list">
+      <app-card *ngFor="let pokemon of pokemonArr" [pokemon]="pokemon"></app-card>
+    </div>
+  </section>
+</main>

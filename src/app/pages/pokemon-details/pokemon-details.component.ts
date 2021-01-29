@@ -2,17 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { PokemonService } from '../../shared/services/pokemon.service';
-import { IndividualPokemonResponse } from 'src/app/shared/models/pokemon.model';
+import { IndividualPokemonResponse, BackgroundColours } from 'src/app/shared/models/pokemon.model';
 
 @Component({
   selector: 'app-pokemon-details',
   templateUrl: './pokemon-details.component.html',
-  styleUrls: ['./pokemon-details.component.css']
+  styleUrls: ['./pokemon-details.component.scss']
 })
 
 export class PokemonDetailsComponent implements OnInit {
 
   pokemon: any = [];
+  backgroundClass: string = "bg-green";
+
 
   constructor(
     private route: ActivatedRoute,
@@ -27,7 +29,10 @@ export class PokemonDetailsComponent implements OnInit {
   getPokemon(): void {
     const id = this.route.snapshot.paramMap.get('id')
     this.pokemonSvc.getIndividualPokemon(id)
-      .subscribe(individualPokemon => this.pokemon = individualPokemon);
+      .subscribe(individualPokemon => {
+        this.pokemon = this.pokemonSvc.cleanPokemon(individualPokemon)
+        this.backgroundClass = BackgroundColours[this.pokemon.types[0]]
+      });
 
 
     // this.pokemonSvc.getIndividualPokemon(id)

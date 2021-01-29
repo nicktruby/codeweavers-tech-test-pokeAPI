@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { PokemonService } from '../../../shared/services/pokemon.service';
 import { IndividualPokemonResponse, BackgroundColours, PokemonResult } from '../../../shared/models/pokemon.model';
@@ -15,7 +16,10 @@ export class CardComponent implements OnInit {
 
   backgroundClass: string = "bg-green";
 
-  constructor(private pokemonSvc : PokemonService) { }
+  constructor(
+    private pokemonSvc : PokemonService,
+    private router: Router,
+    ) { }
 
   ngOnInit(): void {
     this.getPokemon()
@@ -27,5 +31,9 @@ export class CardComponent implements OnInit {
       this.pokemon = this.pokemonSvc.cleanPokemon(individualPokemon)
       this.backgroundClass = BackgroundColours[this.pokemon.types[0]];
       });
+  }
+
+  handleCardClick(): void {
+    this.router.navigate([`/detail/${this.pokemon.name}`]);
   }
 }

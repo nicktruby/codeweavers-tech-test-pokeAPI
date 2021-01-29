@@ -12,11 +12,13 @@
   height: 120px;
   transition: all 0.2s ease;
   box-shadow: rgba(0,0,0,0.2) 2px 2px 5px;
+  text-decoration: none;
 
   &:hover {
     transform: scale(1.05);
     box-shadow: rgba(0,0,0,0.2) 5px 5px 5px;
     cursor: pointer;
+    text-decoration: none;
 
   }
   
@@ -37,6 +39,7 @@
     color: $white;
     font-size: 0.9em;
     margin-bottom: 1em;
+    &:hover {text-decoration: none;}
   }
   &__image {
     text-transform: capitalize;

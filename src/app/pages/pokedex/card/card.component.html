@@ -1,12 +1,10 @@
-<a routerLink="/detail/{{pokemon.name}}">
-  <article class=pokemon [ngClass]="this.backgroundClass">
-    <p class="pokemon__id"><b>{{pokemon.id}}</b></p>
-    <div>
-      <h2 class="pokemon__name"><b>{{pokemon.name}}</b></h2>
-      <ng-container *ngFor="let type of pokemon.types">
-        <p class="pokemon__type">{{type}}</p><br />
-      </ng-container>
-    </div>
-    <img *ngIf="pokemon.image" class="pokemon__image" src={{pokemon.image}} alt={{pokemon.name}}>
-  </article>
-</a>
+<article class=pokemon [ngClass]="this.backgroundClass" (click)="handleCardClick()">
+  <p class="pokemon__id"><b>{{pokemon.id}}</b></p>
+  <div>
+    <h2 class="pokemon__name"><b>{{pokemon.name}}</b></h2>
+    <ng-container *ngFor="let type of pokemon.types">
+      <p class="pokemon__type">{{type}}</p><br />
+    </ng-container>
+  </div>
+  <img *ngIf="pokemon.image" class="pokemon__image" src={{pokemon.image}} alt={{pokemon.name}}>
+</article>
