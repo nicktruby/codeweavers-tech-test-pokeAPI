@@ -18,7 +18,9 @@ export class CardComponent implements OnInit {
   constructor(private pokemonSvc : PokemonService) { }
 
   ngOnInit(): void {
-    this.getPokemon()
+    // console.log(this.pokemon);
+    
+    this.backgroundClass = BackgroundColours[this.pokemon.types[0]];
   }
   
   getPokemon(): void {

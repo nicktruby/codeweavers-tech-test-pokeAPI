@@ -6,13 +6,13 @@
     <li class="page-item" *ngIf="currentPage > 1 ; else previousDisabled">
       <a class="page-link" (click)="previousPage()">Previous</a>
     </li>
-    <li class="page-item disabled">
+    <li class="page-item disabled page-numbers">
       <a class="page-link">{{currentPage}} of {{maxPage}}</a>
     </li>
     <li class="page-item" *ngIf="currentPage < maxPage ; else nextDisabled">
       <a class="page-link" (click)="nextPage()">Next</a>
     </li>
-    
+
   </ul>
 </nav>
 
