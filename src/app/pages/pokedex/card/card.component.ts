@@ -13,7 +13,7 @@ export class CardComponent implements OnInit {
 
   @Input() pokemon : any;
 
-  backgroundClass: string = "bg-green";
+  backgroundClass: string = 'bg-green';
 
   constructor(private pokemonSvc : PokemonService) { }
 

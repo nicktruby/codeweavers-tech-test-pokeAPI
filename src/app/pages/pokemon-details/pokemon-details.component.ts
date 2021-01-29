@@ -33,8 +33,6 @@ export class PokemonDetailsComponent implements OnInit {
     // this.pokemonSvc.getIndividualPokemon(id)
     //   .subscribe(indivudalPokemon => {
     //     this.pokemon = indivudalPokemon
-    //     console.log('abc')
-    //     console.log(this.pokemon)
     //   })
   }
 }

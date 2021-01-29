@@ -15,7 +15,7 @@ export class PokemonService {
 
   
   getPageOfPokemon(filter, pageNumber) : Observable<GroupPokemonResponse> {
-    const url = `https://pokeapi.co/api/v2/pokemon/?limit=${PAGE_SIZE}&offset=${(pageNumber - 1) * PAGE_SIZE}`
+    const url = `https://pokeapi.co/api/v2/${filter}/?limit=${PAGE_SIZE}&offset=${(pageNumber - 1) * PAGE_SIZE}`
     return this.http.get<GroupPokemonResponse>(url)
   }
   
@@ -24,34 +24,20 @@ export class PokemonService {
       return this.http.get<IndividualPokemonResponse>(url);
   }
   
-  // async getPageOfPokemon(filter, pageNumber) : Promise<IndividualPokemonResponse[]> {
-    //   const url = `https://pokeapi.co/api/v2/pokemon/?limit=${PAGE_SIZE}&offset=${(pageNumber - 1) * PAGE_SIZE}`
-  //   const allPokemon = await this.http.get<GroupPokemonResponse>(url).toPromise();
-  //   return await Promise.all(allPokemon.results.map(eachPokemon => this.getIndividualPokemon(eachPokemon.name)));
-  // };
-  
   cleanPokemon(pokemon) {
     return { 
       name : pokemon.name ? pokemon.name : "",
       id : pokemon.id ? this.formatPokemonID(pokemon.id) : "",
-      image : pokemon.sprites.other.dream_world.front_default ? pokemon.sprites.other.dream_world.front_default : "",
+      image : pokemon.sprites.other.dream_world.front_default ? pokemon.sprites.other.dream_world.front_default : pokemon.sprites.front_default ? pokemon.sprites.front_default : pokemon.sprites.other['official-artwork'].front_default,
       types : pokemon.types ? pokemon.types.map(type => type.type.name) : "",
     }
   }
   
   formatPokemonID (id) : string {
-    if (id < 10 ) {
-      return `#000${id}`
-    }
-    else if (id < 100 ) {
-      return `#00${id}`
-    }
-    else if (id < 1000 ) {
-      return `#0${id}`
-    }
-    else {
-      return `#${id}`
-    }
+    if (id < 10 ) return `#000${id}`;
+    else if (id < 100 ) return `#00${id}`;
+    else if (id < 1000 ) return `#0${id}`
+    else return `#${id}`
   }
 
 }
