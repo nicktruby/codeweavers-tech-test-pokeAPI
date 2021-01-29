@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { PokemonService } from '../../shared/services/pokemon.service';
-import { GroupPokemonResponse } from 'src/app/shared/models/pokemon.model';
-import { createOfflineCompileUrlResolver } from '@angular/compiler';
 
 @Component({
   selector: 'app-pokedex',
@@ -37,17 +35,9 @@ export class PokedexComponent implements OnInit {
   }
   
   getPokemon(): void {
-    // step one, get the group of pokemon repsonses    
     this.pokemonSvc.getPageOfPokemon(this.pokemonFilter, this.currentPage)
     .subscribe(pageOfPokemon => {
-      this.pokemonResultsArr = pageOfPokemon.results
-      // step two, use the URL from each repsonse, to get the indvidual pokemon data
-      this.pokemonResultsArr.map((eachPokemon, index) => {
-        this.pokemonSvc.getIndividualPokemon(eachPokemon.name)
-          .subscribe(individualPokemon => {
-            this.pokemonArr.push(this.pokemonSvc.cleanPokemon(individualPokemon))
-          })
-      })
+      this.pokemonArr = pageOfPokemon.results
       this.collectionSize = pageOfPokemon.count
       this.maxPage = Math.ceil(pageOfPokemon.count / 50)
     });

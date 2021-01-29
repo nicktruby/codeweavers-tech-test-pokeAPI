@@ -11,16 +11,14 @@ import { IndividualPokemonResponse, BackgroundColours, PokemonResult } from '../
 })
 export class CardComponent implements OnInit {
 
-  @Input() pokemon : any;
+  @Input() pokemon : any = {}
 
-  backgroundClass: string = 'bg-green';
+  backgroundClass: string = "bg-green";
 
   constructor(private pokemonSvc : PokemonService) { }
 
   ngOnInit(): void {
-    // console.log(this.pokemon);
-    
-    this.backgroundClass = BackgroundColours[this.pokemon.types[0]];
+    this.getPokemon()
   }
   
   getPokemon(): void {

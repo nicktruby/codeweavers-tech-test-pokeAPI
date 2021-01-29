@@ -7,6 +7,6 @@
         <p class="pokemon__type">{{type}}</p><br />
       </ng-container>
     </div>
-    <img class="pokemon__image"src={{pokemon.image}} alt={{pokemon.name}}>
+    <img *ngIf="pokemon.image" class="pokemon__image" src={{pokemon.image}} alt={{pokemon.name}}>
   </article>
 </a>
