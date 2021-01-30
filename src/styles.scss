@@ -4,8 +4,10 @@
 // Required
 @import "~bootstrap/scss/bootstrap.scss";
 
+//install local font
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
 * {
-  font-family: Sofia-pro, Arial, Helvetica, sans-serif;
+  font-family: 'Manrope', Arial, Helvetica, sans-serif;
 }
 
 .bg-green { background-color: $green; }

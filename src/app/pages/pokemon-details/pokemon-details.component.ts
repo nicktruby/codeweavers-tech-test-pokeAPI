@@ -14,6 +14,8 @@ export class PokemonDetailsComponent implements OnInit {
 
   pokemon: any = [];
   backgroundClass: string = "bg-green";
+  activeDetails : string = "about";
+  detailsPosition : string = "position1";
 
 
   constructor(
@@ -32,12 +34,17 @@ export class PokemonDetailsComponent implements OnInit {
       .subscribe(individualPokemon => {
         this.pokemon = this.pokemonSvc.cleanPokemon(individualPokemon)
         this.backgroundClass = BackgroundColours[this.pokemon.types[0]]
+        console.log(individualPokemon);
       });
+  }
 
-
-    // this.pokemonSvc.getIndividualPokemon(id)
-    //   .subscribe(indivudalPokemon => {
-    //     this.pokemon = indivudalPokemon
-    //   })
+  setActiveDetails(itemName): void {
+    this.activeDetails = itemName
+    switch (itemName) {
+      case "about": this.detailsPosition = "position1"; break;
+      case "stats": this.detailsPosition = "position2"; break;
+      case "evolution": this.detailsPosition = "position3"; break;
+      case "moves": this.detailsPosition = "position4"; break;
+    }    
   }
 }

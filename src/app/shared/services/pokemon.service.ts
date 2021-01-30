@@ -30,9 +30,24 @@ export class PokemonService {
       id : pokemon.id ? this.formatPokemonID(pokemon.id) : "",
       image : pokemon.sprites.other.dream_world.front_default ? pokemon.sprites.other.dream_world.front_default : pokemon.sprites.front_default ? pokemon.sprites.front_default : pokemon.sprites.other['official-artwork'].front_default,
       types : pokemon.types ? pokemon.types.map(type => type.type.name) : "",
+      stats: pokemon.stats.map(stat => {
+        return { name : stat.stat.name,
+                baseValue : stat.base_stat,
+        }
+      }),
     }
   }
   
+  // stats: Array(6)
+    // 0:
+      // base_stat: 45
+      // effort: 0
+      // stat:
+        // name: "hp"
+        // url: "https://pokeapi.co/api/v2/stat/1/"
+  
+  
+
   formatPokemonID (id) : string {
     if (id < 10 ) return `#000${id}`;
     else if (id < 100 ) return `#00${id}`;
