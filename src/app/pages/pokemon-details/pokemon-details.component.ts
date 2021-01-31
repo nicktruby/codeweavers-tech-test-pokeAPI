@@ -16,8 +16,8 @@ export class PokemonDetailsComponent implements OnInit {
   pokemonData: any;
   speciesData: any;
   backgroundClass: string = "bg-green";
-  activeDetails : string = "about";
-  detailsPosition : string = "position1";
+  activeDetails : string = "moves";
+  detailsPosition : string = "position4";
 
 
   constructor(

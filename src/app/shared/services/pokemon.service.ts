@@ -39,7 +39,7 @@ export class PokemonService {
   }
   
   buildFullPokemon(pokemon, species: any = {}) {
-    console.log(species);
+    console.log(pokemon.moves[0]);
     
     return { 
       name : pokemon.name ? pokemon.name : "",
@@ -55,6 +55,7 @@ export class PokemonService {
       habitat : species.habitat.name,
       eggGroup : species.egg_groups[0].name,
       zone : species.habitat.name,
+      moves: pokemon.moves
       
     }
   }

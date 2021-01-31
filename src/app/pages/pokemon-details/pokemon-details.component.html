@@ -50,12 +50,25 @@
         </div>
       </div>
 
-      <div class="details__evolution">
+      <div class="bottom__details__evolution">
         Evolution content
       </div>
 
-      <div class="details__moves">
-        Moves content
+      <div class="bottom__details__moves">
+        <div class="bottom__details__moves__total">
+          <h6>Total Available Moves</h6>
+          <p>{{pokemon.moves.length}}</p>
+        </div>
+        <div class="bottom__details__moves__list">
+          <h6>Name</h6>
+          <h6>Level Learned</h6>
+          <h6>Learned by</h6>
+          <ng-container class="bottom__details__stats__box" *ngFor="let move of pokemon.moves">
+            <p>{{move.move.name}}</p>
+            <p>{{move.version_group_details[0].level_learned_at}}</p>
+            <p>{{move.version_group_details[0].move_learn_method.name}}</p>
+          </ng-container>
+        </div>  
       </div>
     </div>
     
