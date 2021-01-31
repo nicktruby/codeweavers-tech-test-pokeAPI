@@ -27,8 +27,8 @@ export class CardComponent implements OnInit {
   
   getPokemon(): void {
     this.pokemonSvc.getIndividualPokemon(this.pokemon.name)
-    .subscribe(individualPokemon => {
-      this.pokemon = this.pokemonSvc.cleanPokemon(individualPokemon)
+    .subscribe(pokemonData => {
+      this.pokemon = this.pokemonSvc.buildBasicPokemon(pokemonData)
       this.backgroundClass = BackgroundColours[this.pokemon.types[0]];
       });
   }

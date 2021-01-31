@@ -13,6 +13,8 @@ import { IndividualPokemonResponse, BackgroundColours } from 'src/app/shared/mod
 export class PokemonDetailsComponent implements OnInit {
 
   pokemon: any = [];
+  pokemonData: any;
+  speciesData: any;
   backgroundClass: string = "bg-green";
   activeDetails : string = "about";
   detailsPosition : string = "position1";
@@ -29,12 +31,23 @@ export class PokemonDetailsComponent implements OnInit {
   }
 
   getPokemon(): void {
+    //step 1, get the ID for the pokemon out of the URL
     const id = this.route.snapshot.paramMap.get('id')
+
+    //step 2, get the data from the 'pokemon' endpoint
     this.pokemonSvc.getIndividualPokemon(id)
-      .subscribe(individualPokemon => {
-        this.pokemon = this.pokemonSvc.cleanPokemon(individualPokemon)
-        this.backgroundClass = BackgroundColours[this.pokemon.types[0]]
-        console.log(individualPokemon);
+      .subscribe(pokemonDataResponse => {
+        this.pokemonData = pokemonDataResponse
+        
+        //step 3 - get the data from the 'species' endpoint
+        this.pokemonSvc.getSpeciesData(pokemonDataResponse.species.url)
+        .subscribe(speciesDataResponse => {
+          this.speciesData = speciesDataResponse
+
+          //step 4 - run both data sets into the function to get a single clean pokemon data object
+          this.pokemon = this.pokemonSvc.buildFullPokemon(this.pokemonData, this.speciesData)
+          this.backgroundClass = BackgroundColours[this.pokemon.types[0]]
+          })
       });
   }
 

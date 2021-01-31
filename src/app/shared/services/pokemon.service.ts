@@ -24,29 +24,60 @@ export class PokemonService {
       return this.http.get<IndividualPokemonResponse>(url);
   }
   
-  cleanPokemon(pokemon) {
+  getSpeciesData(url) : any {
+    return this.http.get(url);
+  }
+  
+  buildBasicPokemon(pokemonData) {
+    return { 
+      name : pokemonData.name ? pokemonData.name : "",
+      id : pokemonData.id ? this.formatPokemonID(pokemonData.id) : "",
+      image : this.getImage(pokemonData),
+      types : pokemonData.types ? pokemonData.types.map(type => type.type.name) : "",
+    }
+    
+  }
+  
+  buildFullPokemon(pokemon, species: any = {}) {
+    console.log(species);
+    
     return { 
       name : pokemon.name ? pokemon.name : "",
       id : pokemon.id ? this.formatPokemonID(pokemon.id) : "",
       image : pokemon.sprites.other.dream_world.front_default ? pokemon.sprites.other.dream_world.front_default : pokemon.sprites.front_default ? pokemon.sprites.front_default : pokemon.sprites.other['official-artwork'].front_default,
       types : pokemon.types ? pokemon.types.map(type => type.type.name) : "",
-      stats: pokemon.stats.map(stat => {
-        return { name : stat.stat.name,
-                baseValue : stat.base_stat,
-        }
-      }),
+      stats: pokemon.stats.map(stat => ({ name : stat.stat.name, baseValue : stat.base_stat,})),
+      description : this.getDescription(species),
+      height : (pokemon.height * 0.175).toFixed(2),
+      weight : (pokemon.weight * 0.115).toFixed(2),
+      happiness : species.base_happiness,
+      shape : species.shape.name,
+      habitat : species.habitat.name,
+      eggGroup : species.egg_groups[0].name,
+      zone : species.habitat.name,
+      
     }
   }
   
-  // stats: Array(6)
-    // 0:
-      // base_stat: 45
-      // effort: 0
-      // stat:
-        // name: "hp"
-        // url: "https://pokeapi.co/api/v2/stat/1/"
-  
-  
+  getDescription(speciesData : any = {}) {
+    const englishdescriptions =
+    // filter out any duplicates
+      [...new Set(speciesData.flavor_text_entries
+        //filter to english language only
+              .filter(entry => entry.language.name === "en")
+              // use only the text itself
+              .map(entry => entry.flavor_text)
+      )]
+    return englishdescriptions[5] ? englishdescriptions[5] :
+          englishdescriptions[0] ? englishdescriptions[0] : 
+          ""
+  }
+
+  getImage(pokemonData: IndividualPokemonResponse) {
+    return pokemonData.sprites.other.dream_world.front_default ? pokemonData.sprites.other.dream_world.front_default :
+          pokemonData.sprites.front_default ? pokemonData.sprites.front_default :
+          pokemonData.sprites.other['official-artwork'].front_default ? pokemonData.sprites.other['official-artwork'].front_default : ""
+  }
 
   formatPokemonID (id) : string {
     if (id < 10 ) return `#000${id}`;

@@ -16,25 +16,44 @@
     <nav class="bottom__nav">
       <ul class="bottom__nav__menu">
         <li class="bottom__nav__item" [ngClass]="{'bottom__nav__item--active' : activeDetails === 'about'}" (click)="setActiveDetails('about')">About</li>
-        <li class="bottom__nav__item" [ngClass]="{'bottom__nav__item--active' : activeDetails === 'stats'}" (click)="setActiveDetails('stats')">Stats</li>
+        <li class="bottom__nav__item" [ngClass]="{'bottom__nav__item--active' : activeDetails === 'stats'}" (click)="setActiveDetails('stats')">Base Stats</li>
         <li class="bottom__nav__item" [ngClass]="{'bottom__nav__item--active' : activeDetails === 'evolution'}" (click)="setActiveDetails('evolution')">Evolution</li>
         <li class="bottom__nav__item" [ngClass]="{'bottom__nav__item--active' : activeDetails === 'moves'}" (click)="setActiveDetails('moves')">Moves</li>
       </ul>
     </nav>
     <div class="bottom__details" [ngClass]="detailsPosition">
-      <div class="details__about">
-        About content
+      
+      <div class="bottom__details__about">
+        <p class="bottom__details__about__description">{{pokemon.description}}</p>
+        <div class="bottom__details__about__heightAndWeight">
+          <h6>Height</h6>
+          <h6>Weight</h6>
+          <p>{{pokemon.height}} cm</p>
+          <p>{{pokemon.weight}} kg</p>
+        </div>
+        <div class="bottom__details__about__others">
+          <h6>Base Happiness</h6>
+          <p>{{pokemon.happiness}}</p>
+          <h6>Shape</h6>
+          <p>{{pokemon.shape}}</p>
+          <h6>Habitat</h6>
+          <p>{{pokemon.habitat}}</p>
+          <h6>Egg Group</h6>
+          <p>{{pokemon.eggGroup}}</p>
+        </div>
       </div>
-      <div class="details__stats">
-        Stats content
-        <ng-container *ngFor="let stat of pokemon.stats">
-          <p class="bottom__stats__stat">{{stat.name}}</p>
-          <p class="bottom__stats__stat">{{stat.baseValue}}</p>
-        </ng-container>
+      
+      <div class="bottom__details__stats">
+        <div class="bottom__details__stats__box" *ngFor="let stat of pokemon.stats">
+          <h6>{{stat.name}}</h6>
+          <p>{{stat.baseValue}}</p>
+        </div>
       </div>
+
       <div class="details__evolution">
         Evolution content
       </div>
+
       <div class="details__moves">
         Moves content
       </div>

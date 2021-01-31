@@ -23,8 +23,8 @@ export interface IndividualPokemonResponse {
   moves: object[],
   name: string,
   order: number,
-  species: object,
-  sprites: object[],
+  species: { name: string, url: string},
+  sprites: any,
   stats: object[],
   types: object[],
   weight: number
