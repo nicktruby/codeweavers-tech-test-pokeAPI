@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "pokeapi-304bb": {
+      "hosting": {
+        "app": [
+          "pokeapi-304bb"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "pokeapi-304bb"
+  }
+}

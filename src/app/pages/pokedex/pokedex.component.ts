@@ -10,7 +10,6 @@ import { PokemonService } from '../../shared/services/pokemon.service';
 })
 export class PokedexComponent implements OnInit {
 
-  pokemonResultsArr: any;
   pokemonArr : any[] = [];
 
   currentPage : number = 1;
@@ -27,14 +26,13 @@ export class PokedexComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => { return false; }
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
+    this.currentPage = Number(this.route.snapshot.paramMap.get('pageNumber').replace('page', ''))
     this.getPokemon()
   }
   
   getPokemon(): void {
-    const currentPage = Number(this.route.snapshot.paramMap.get('pageNumber').replace('page', ''))
-
-    this.pokemonSvc.getPageOfPokemon(currentPage)
+    this.pokemonSvc.getPageOfPokemon(this.currentPage)
     .subscribe(pageOfPokemon => {
       this.pokemonArr = pageOfPokemon.results
       this.collectionSize = pageOfPokemon.count

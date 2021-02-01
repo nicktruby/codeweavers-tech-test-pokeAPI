@@ -35,16 +35,13 @@ export class PokemonService {
       image : this.getImage(pokemonData),
       types : pokemonData.types ? pokemonData.types.map(type => type.type.name) : "",
     }
-    
   }
   
   buildFullPokemon(pokemon, species: any = {}, evolution: any = {} ) {
-    
-
     return { 
       name : pokemon.name ? pokemon.name : "",
       id : pokemon.id ? this.formatPokemonID(pokemon.id) : "",
-      image : pokemon.sprites.other.dream_world.front_default ? pokemon.sprites.other.dream_world.front_default : pokemon.sprites.front_default ? pokemon.sprites.front_default : pokemon.sprites.other['official-artwork'].front_default,
+      image : this.getImage(pokemon),
       types : pokemon.types ? pokemon.types.map(type => type.type.name) : "",
       stats: pokemon.stats.map(stat => ({ name : stat.stat.name, baseValue : stat.base_stat,})),
       description : this.getDescription(species),
@@ -60,12 +57,12 @@ export class PokemonService {
     }
   }
   
-  buildEvolutionArray(evolutionChain, currentArray = []) {
-    const nextSpecies = evolutionChain.evolves_to[0]
-    const evolvesAt = evolutionChain.evolves_to[0] ? evolutionChain.evolves_to[0].evolution_details[0].min_level : "Max";
+  buildEvolutionArray(currentPokemon, currentArray = []) {
+    const nextSpecies = currentPokemon.evolves_to[0]
+    const evolvesAt = currentPokemon.evolves_to[0] ? currentPokemon.evolves_to[0].evolution_details[0].min_level : "Max";
         let evolutionArray = currentArray
     
-    evolutionArray.push({...evolutionChain.species, evolvesAt : evolvesAt })
+    evolutionArray.push({...currentPokemon.species, evolvesAt : evolvesAt })
     if(nextSpecies) this.buildEvolutionArray(nextSpecies, currentArray)
     
     return evolutionArray
