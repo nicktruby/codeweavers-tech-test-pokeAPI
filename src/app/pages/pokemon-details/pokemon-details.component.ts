@@ -51,8 +51,8 @@ export class PokemonDetailsComponent implements OnInit {
           this.pokemon = this.pokemonSvc.buildFullPokemon(pokemonDataResponse, speciesDataResponse, EvolutionDataResponse)
           this.backgroundClass = BackgroundColours[this.pokemon.types[0]]
           this.numberOfEvolutionSteps = this.pokemon.evolution.length
-          //step 6 - iterate through the evolution stages, and fetch their images
           
+          //step 6 - iterate through the evolution stages, and fetch their images
           if(this.pokemon.evolution) {
             this.pokemon.evolution.forEach((eachStage, index) => {
             this.pokemonSvc.getIndividualPokemon(eachStage.name)

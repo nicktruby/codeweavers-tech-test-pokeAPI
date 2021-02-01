@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
@@ -8,11 +9,15 @@ import { Location } from '@angular/common';
 })
 export class NavbarComponent implements OnInit {
 
+  arrowColour: string = 'black'
+
   constructor(
-    private location: Location
+    private location: Location,
+    private route: ActivatedRoute,
     ) { }
 
   ngOnInit(): void {
+    if(this.route.snapshot.paramMap.get('id')) this.arrowColour = 'white'    
   }
 
   backClicked() {

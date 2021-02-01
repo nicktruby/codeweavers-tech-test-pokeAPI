@@ -14,8 +14,8 @@ export class PokemonService {
   constructor( private http: HttpClient ) { }
 
   
-  getPageOfPokemon(filter, pageNumber) : Observable<GroupPokemonResponse> {
-    const url = `https://pokeapi.co/api/v2/${filter}/?limit=${PAGE_SIZE}&offset=${(pageNumber - 1) * PAGE_SIZE}`
+  getPageOfPokemon(pageNumber) : Observable<GroupPokemonResponse> {
+    const url = `https://pokeapi.co/api/v2/pokemon/?limit=${PAGE_SIZE}&offset=${(pageNumber - 1) * PAGE_SIZE}`
     return this.http.get<GroupPokemonResponse>(url)
   }
   

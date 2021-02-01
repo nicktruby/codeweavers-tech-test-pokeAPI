@@ -17,7 +17,6 @@ export class PokedexComponent implements OnInit {
   maxPage : number;
   pageSize : number = 50;
   collectionSize : number = 50;
-  pokemonFilter : string = 'pokemon';
 
   constructor(
     private route: ActivatedRoute,
@@ -28,14 +27,14 @@ export class PokedexComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => { return false; }
   }
 
-  ngOnInit(): void {
-    this.pokemonFilter = this.route.snapshot.paramMap.get('filter')
-    this.currentPage = Number(this.route.snapshot.paramMap.get('pageNumber').replace('page', ''))
+  ngOnInit(): void { 
     this.getPokemon()
   }
   
   getPokemon(): void {
-    this.pokemonSvc.getPageOfPokemon(this.pokemonFilter, this.currentPage)
+    const currentPage = Number(this.route.snapshot.paramMap.get('pageNumber').replace('page', ''))
+
+    this.pokemonSvc.getPageOfPokemon(currentPage)
     .subscribe(pageOfPokemon => {
       this.pokemonArr = pageOfPokemon.results
       this.collectionSize = pageOfPokemon.count
@@ -44,11 +43,11 @@ export class PokedexComponent implements OnInit {
   }
 
   nextPage() {
-    this.router.navigate([`/pokedex/${this.pokemonFilter}/page${this.currentPage + 1}`]);
+    this.router.navigate([`/pokedex/page${this.currentPage + 1}`]);
   }
   
   previousPage() {
-    this.router.navigate([`/pokedex/${this.pokemonFilter}/page${this.currentPage - 1}`]);
+    this.router.navigate([`/pokedex/page${this.currentPage - 1}`]);
   }
   
 }
