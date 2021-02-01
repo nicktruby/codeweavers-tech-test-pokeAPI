@@ -24,7 +24,7 @@ export class PokemonService {
       return this.http.get<IndividualPokemonResponse>(url);
   }
   
-  getSpeciesData(url) : any {
+  getEndpointData(url) : any {
     return this.http.get(url);
   }
   
@@ -38,9 +38,9 @@ export class PokemonService {
     
   }
   
-  buildFullPokemon(pokemon, species: any = {}) {
-    console.log(pokemon.moves[0]);
+  buildFullPokemon(pokemon, species: any = {}, evolution: any = {} ) {
     
+
     return { 
       name : pokemon.name ? pokemon.name : "",
       id : pokemon.id ? this.formatPokemonID(pokemon.id) : "",
@@ -50,16 +50,27 @@ export class PokemonService {
       description : this.getDescription(species),
       height : (pokemon.height * 0.175).toFixed(2),
       weight : (pokemon.weight * 0.115).toFixed(2),
-      happiness : species.base_happiness,
-      shape : species.shape.name,
-      habitat : species.habitat.name,
-      eggGroup : species.egg_groups[0].name,
-      zone : species.habitat.name,
-      moves: pokemon.moves
-      
+      happiness : species.base_happiness ? species.base_happiness : "",
+      shape : species.shape ? species.shape.name : "",
+      habitat : species.habitat ? species.habitat.name : "",
+      eggGroup : species.egg_groups.length > 0 ? species.egg_groups[0].name : "",
+      moves: pokemon.moves ? pokemon.moves : "",
+      totalMoves: pokemon.moves ? pokemon.moves.length : "",
+      evolution : evolution.chain ? this.buildEvolutionArray(evolution.chain) : "",
     }
   }
   
+  buildEvolutionArray(evolutionChain, currentArray = []) {
+    const nextSpecies = evolutionChain.evolves_to[0]
+    const evolvesAt = evolutionChain.evolves_to[0] ? evolutionChain.evolves_to[0].evolution_details[0].min_level : "Max";
+        let evolutionArray = currentArray
+    
+    evolutionArray.push({...evolutionChain.species, evolvesAt : evolvesAt })
+    if(nextSpecies) this.buildEvolutionArray(nextSpecies, currentArray)
+    
+    return evolutionArray
+  }
+
   getDescription(speciesData : any = {}) {
     const englishdescriptions =
     // filter out any duplicates

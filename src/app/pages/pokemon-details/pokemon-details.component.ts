@@ -13,11 +13,12 @@ import { IndividualPokemonResponse, BackgroundColours } from 'src/app/shared/mod
 export class PokemonDetailsComponent implements OnInit {
 
   pokemon: any = [];
-  pokemonData: any;
-  speciesData: any;
+  
+  evolutionStepsArr = Array;
+  numberOfEvolutionSteps : number = 1;
   backgroundClass: string = "bg-green";
-  activeDetails : string = "moves";
-  detailsPosition : string = "position4";
+  activeDetails : string = "about";
+  detailsPosition : string = "position1";
 
 
   constructor(
@@ -37,18 +38,30 @@ export class PokemonDetailsComponent implements OnInit {
     //step 2, get the data from the 'pokemon' endpoint
     this.pokemonSvc.getIndividualPokemon(id)
       .subscribe(pokemonDataResponse => {
-        this.pokemonData = pokemonDataResponse
         
         //step 3 - get the data from the 'species' endpoint
-        this.pokemonSvc.getSpeciesData(pokemonDataResponse.species.url)
+        this.pokemonSvc.getEndpointData(pokemonDataResponse.species.url)
         .subscribe(speciesDataResponse => {
-          this.speciesData = speciesDataResponse
 
-          //step 4 - run both data sets into the function to get a single clean pokemon data object
-          this.pokemon = this.pokemonSvc.buildFullPokemon(this.pokemonData, this.speciesData)
+          //step 4 - get the data from the 'evolution chain' endpoint
+          this.pokemonSvc.getEndpointData(speciesDataResponse.evolution_chain.url)
+          .subscribe(EvolutionDataResponse => {
+
+          //step 5 - run the data sets into the builder function to get a pokemon data object
+          this.pokemon = this.pokemonSvc.buildFullPokemon(pokemonDataResponse, speciesDataResponse, EvolutionDataResponse)
           this.backgroundClass = BackgroundColours[this.pokemon.types[0]]
-          })
-      });
+          this.numberOfEvolutionSteps = this.pokemon.evolution.length
+          //step 6 - iterate through the evolution stages, and fetch their images
+          
+          if(this.pokemon.evolution) {
+            this.pokemon.evolution.forEach((eachStage, index) => {
+            this.pokemonSvc.getIndividualPokemon(eachStage.name)
+            .subscribe(res => this.pokemon.evolution[index].image = this.pokemonSvc.getImage(res))
+            });
+          }
+        })
+      })
+    });
   }
 
   setActiveDetails(itemName): void {

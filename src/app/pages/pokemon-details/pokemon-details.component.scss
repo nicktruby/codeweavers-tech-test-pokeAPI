@@ -214,6 +214,62 @@
         }
       }
     }
+
+    &__evo {
+      padding: 20px;
+      width: 100%;
+      max-width: 400px;
+      flex-wrap: wrap;
+
+      &__step {
+        margin: 0 auto 20px auto;
+        padding: 20px;
+        max-width: 500px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: $border-radius-normal;
+        box-shadow: rgba(0,0,0,0.2) 2px 2px 7px;
+        text-align: left;
+
+        &__pokemon {
+          text-align: center;
+          p {
+            text-transform: capitalize;
+          }
+          img {
+            width: 75px;
+          }
+        }
+        
+        &__transition {
+          text-align: center;
+
+          p {
+            text-transform: capitalize;
+          }
+          img {
+            width: 40px;
+            transform: rotate(180deg);
+          }
+        }
+      }
+      
+      h6 {
+        text-transform: capitalize;
+        margin: 0;
+        padding: 5px;
+        font-size: 0.8em;
+        font-weight: 800;
+        opacity: 0.3;
+      }
+      p {
+        margin: 0;
+        padding: 5px;
+        font-size: 0.8em;
+        font-weight: 600;
+      }
+    }
     &__moves {
       padding: 20px;
       max-width: 400px;

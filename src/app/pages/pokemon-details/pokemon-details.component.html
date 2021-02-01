@@ -50,14 +50,31 @@
         </div>
       </div>
 
-      <div class="bottom__details__evolution">
-        Evolution content
+      <div class="bottom__details__evo">
+        <div class="bottom__details__evo__step" *ngFor="let evolutionStep of evolutionStepsArr(numberOfEvolutionSteps - 1).fill(1), let i = index">
+          <div class="bottom__details__evo__step__pokemon">
+            <img src={{pokemon.evolution[i].image}} alt={{pokemon.evolution[i].name}}>
+            <p>{{pokemon.evolution[i].name}}</p>
+          </div>
+          <div class="bottom__details__evo__step__transition">
+            <img src="../../../../assets/images/left-arrow-black-100.png">
+            <p>From Level {{pokemon.evolution[i].evolvesAt}}</p>
+
+          </div>  
+          <div class="bottom__details__evo__step__pokemon">
+            <img src={{pokemon.evolution[i+1].image}} alt={{pokemon.evolution[i+1].name}}>
+            <p>{{pokemon.evolution[i+1].name}}</p>
+          </div>
+        </div>
+        <!-- <ng-container *ngFor="let pokemon of pokemon.evolution">
+
+        </ng-container> -->
       </div>
 
       <div class="bottom__details__moves">
         <div class="bottom__details__moves__total">
           <h6>Total Available Moves</h6>
-          <p>{{pokemon.moves.length}}</p>
+          <p>{{pokemon.totalMoves}}</p>
         </div>
         <div class="bottom__details__moves__list">
           <h6>Name</h6>
