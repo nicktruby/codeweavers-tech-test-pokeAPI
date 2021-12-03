@@ -1,3 +1,9 @@
+This was my submitted tech test to one of the positions I applied for within 1-3 months of finishing my bootcamp software development course at _nology in December 2020.
+
+I've not made changes since (other than this readme) so It's a good example of my skills at that time.
+
+---
+
 # PokéAPI Directory 
 
 ## Prerequisite
